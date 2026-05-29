@@ -301,9 +301,6 @@
 
   let currentUser = null;
 
-  document.getElementById("admin-email").value = "lbittoun@outlook.com";
-  document.getElementById("admin-pwd").value = "0RowwUKM";
-
   function esc(s) {
     return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
   }
@@ -376,8 +373,8 @@
     currentUser = null;
     document.getElementById("publish-card").style.display = 'none';
     document.getElementById("login-card").style.display = 'block';
-    document.getElementById("admin-email").value = "lbittoun@outlook.com";
-    document.getElementById("admin-pwd").value = "0RowwUKM";
+    document.getElementById("admin-email").value = "";
+    document.getElementById("admin-pwd").value = "";
     document.getElementById("ann-author").value = "";
     document.getElementById("ann-title").value = "";
     document.getElementById("ann-body").value = "";
@@ -439,8 +436,8 @@
     } else {
       document.getElementById("publish-card").style.display = 'none';
       document.getElementById("login-card").style.display = 'block';
-      document.getElementById("admin-email").value = "lbittoun@outlook.com";
-      document.getElementById("admin-pwd").value = "0RowwUKM";
+      document.getElementById("admin-email").value = "";
+      document.getElementById("admin-pwd").value = "";
     }
   });
 
