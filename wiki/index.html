@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wiki — Dimension Hatred</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Share+Tech+Mono&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg:#03040a;
+      --bg-soft:#090814;
+      --panel:#0d0716;
+      --border:#6f309c55;
+      --acc1:#b045ff;
+      --acc2:#6f24ff;
+      --acc3:#99f6ff;
+      --text:#fff;
+      --muted:#c9b7db;
+      --glow:0 0 0 1px rgba(176,69,255,.28), 0 0 24px rgba(118,33,214,.24);
+    }
+
+    * { box-sizing: border-box; margin:0; padding:0; }
+    body {
+      min-height:100vh;
+      font-family:'Nunito',sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at top, rgba(114,30,173,.24), transparent 28%),
+        linear-gradient(180deg, #02020b, #03040a 24%, #02020b);
+      padding:24px;
+    }
+
+    .shell {
+      max-width:800px;
+      margin:0 auto;
+      display:flex;
+      flex-direction:column;
+      gap:18px;
+    }
+
+    .hero {
+      background:rgba(10,7,15,.82);
+      border:1px solid rgba(111,48,156,.35);
+      border-radius:20px;
+      box-shadow:var(--glow);
+      padding:20px 22px;
+    }
+
+    .eyebrow {
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      font-family:'Share Tech Mono',monospace;
+      font-size:.68rem;
+      letter-spacing:.24em;
+      text-transform:uppercase;
+      color:var(--acc3);
+      margin-bottom:10px;
+    }
+
+    h1 {
+      font-family:'Bebas Neue',sans-serif;
+      font-size:3.4rem;
+      letter-spacing:.08em;
+    }
+
+    .subtle {
+      margin-top:10px;
+      color:var(--muted);
+      line-height:1.55;
+      max-width:62ch;
+    }
+
+    .card {
+      background:rgba(10,7,15,.8);
+      border:1px solid rgba(111,48,156,.35);
+      border-radius:18px;
+      box-shadow:var(--glow);
+      padding:20px 22px;
+    }
+
+    .coming-soon {
+      font-family:'Bebas Neue',sans-serif;
+      font-size:4.6rem;
+      letter-spacing:.12em;
+      color:var(--acc1);
+      text-shadow:0 0 14px rgba(176,69,255,.42);
+      line-height:1;
+      margin-bottom:10px;
+    }
+
+    .card p {
+      color:var(--muted);
+      line-height:1.6;
+      margin-bottom:16px;
+    }
+
+    .back {
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      width:max-content;
+      padding:10px 12px;
+      border-radius:999px;
+      text-decoration:none;
+      color:var(--text);
+      border:1px solid rgba(176,69,255,.28);
+      background:rgba(176,69,255,.12);
+      font-family:'Share Tech Mono',monospace;
+      font-size:.68rem;
+      letter-spacing:.16em;
+      text-transform:uppercase;
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <section class="hero">
+      <div class="eyebrow">Dimension Hatred</div>
+      <h1>WIKI</h1>
+      <p class="subtle">The full reference guide is still being prepared.</p>
+      <p class="subtle" style="margin-top:12px;"><a class="back" href="../">← Back home</a></p>
+    </section>
+
+    <section class="card">
+      <div class="coming-soon">COMING SOON</div>
+      <p>The wiki will contain character notes, build details, and community guides. This page is currently under construction.</p>
+    </section>
+  </div>
+</body>
+</html>
