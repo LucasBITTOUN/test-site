@@ -2,16 +2,11 @@
 
 Static site for the Dimension Hatred fan mod.
 
-## Structure
+## Features
 
-- `index.html` : public homepage with announcements.
-- `admin/index.html` : hidden admin dashboard for publishing announcements.
-
-## Announcements
-
-- Public announcements are read from Firestore.
-- The hidden admin page uses Firebase Auth to sign in.
-- When publishing, the admin enters a pseudo that is stored as the announcement author.
+- Public homepage with the latest site information.
+- Announcement cards displayed from Firebase/Firestore.
+- Simple static site structure for easy local preview.
 
 ## Local preview
 
