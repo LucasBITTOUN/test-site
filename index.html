@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -161,6 +161,18 @@
       font-family:'Share Tech Mono',monospace; font-size:.75rem;
       letter-spacing:.1em; color:#fff;
     }
+    .dl-card.disabled {
+      pointer-events:none;
+      opacity:.6;
+      cursor:not-allowed;
+      filter: grayscale(.3);
+    }
+    .dl-card.disabled:hover {
+      transform:none;
+      border-color:var(--border);
+      box-shadow:none;
+    }
+    .dl-card.disabled::before { opacity:0; }
 
     /* CREDITS TEASER */
     .credits-teaser {
@@ -327,195 +339,124 @@
 
   <!-- DOWNLOAD -->
   <section class="section" id="download">
-    <h2 class="section-title">Téléchargement</h2>
+    <h2 class="section-title">Download</h2>
     <div class="dl-grid">
 
-      <a class="dl-card" href="#" id="link-windows" target="_blank" rel="noopener">
+      <a class="dl-card disabled" href="#" id="link-windows" target="_blank" rel="noopener" aria-disabled="true">
         <div class="dl-icon">🪟</div>
         <div class="dl-name">Windows</div>
-        <div class="dl-desc">Version complète pour Windows 10 / 11</div>
-        <span class="dl-badge">TÉLÉCHARGER</span>
+        <div class="dl-desc">Full build for Windows 10 / 11</div>
+        <span class="dl-badge">COMING SOON</span>
       </a>
 
-      <a class="dl-card" href="#" id="link-gamebanana" target="_blank" rel="noopener">
+      <a class="dl-card disabled" href="#" id="link-gamebanana" target="_blank" rel="noopener" aria-disabled="true">
         <div class="dl-icon">🍌</div>
         <div class="dl-name">GameBanana</div>
-        <div class="dl-desc">Page officielle du mod sur GameBanana</div>
-        <span class="dl-badge">VOIR LA PAGE</span>
+        <div class="dl-desc">Official page is not ready yet.</div>
+        <span class="dl-badge">COMING SOON</span>
       </a>
 
-      <a class="dl-card" href="#" id="link-linux" target="_blank" rel="noopener">
+      <a class="dl-card disabled" href="#" id="link-linux" target="_blank" rel="noopener" aria-disabled="true">
         <div class="dl-icon">🐧</div>
         <div class="dl-name">Linux</div>
-        <div class="dl-desc">Build Linux (experimental)</div>
-        <span class="dl-badge">TÉLÉCHARGER</span>
+        <div class="dl-desc">Linux build (experimental)</div>
+        <span class="dl-badge">COMING SOON</span>
       </a>
 
     </div>
     <p style="margin-top:14px;font-family:'Share Tech Mono',monospace;font-size:.75rem;color:var(--muted);text-align:center;">
-      ⚙️ Remplace les <code style="color:var(--acc3)">#</code> par tes vrais liens de téléchargement dans le HTML.
+      ⚙️ Replace the <code style="color:var(--acc3)">#</code> placeholders with real download links in the HTML.
     </p>
   </section>
 
   <!-- CREDITS TEASER -->
   <section class="section" id="credits">
-    <h2 class="section-title">Crédits</h2>
+    <h2 class="section-title">Credits</h2>
     <div class="credits-teaser">
-      <div class="coming-soon">COMING SOON</div>
-      <p class="credits-sub">// La page des crédits arrive bientôt //</p>
+      <p class="credits-sub">// Credits page is being prepared. //</p>
     </div>
   </section>
 
   <!-- ANNOUNCEMENTS -->
   <section class="section" id="news">
-    <h2 class="section-title">Annonces</h2>
+    <h2 class="section-title">Announcements</h2>
     <div class="announce-list" id="announce-list">
-      <div class="no-announce">Aucune annonce pour le moment. Revenez bientôt !</div>
+      <div class="no-announce">No announcements yet. Check back soon!</div>
     </div>
   </section>
 
-  <!-- ADMIN TOGGLE -->
-  <div class="admin-toggle">
-    <button class="btn-ghost" onclick="toggleAdmin()">⚙ Espace Admin</button>
-  </div>
-
-  <!-- ADMIN PANEL -->
-  <div class="admin-panel" id="admin-panel">
-    <h3>// Panneau Admin</h3>
-    <div id="login-section">
-      <div class="field">
-        <label>Mot de passe admin</label>
-        <input type="password" id="admin-pwd" placeholder="••••••••" onkeydown="if(event.key==='Enter')login()" />
-      </div>
-      <button class="btn-primary" onclick="login()">CONNEXION</button>
-      <div id="login-msg"></div>
-    </div>
-    <div id="post-section" style="display:none">
-      <div class="field">
-        <label>Titre de l'annonce</label>
-        <input type="text" id="ann-title" placeholder="ex : Mise à jour v1.2 disponible !" />
-      </div>
-      <div class="field">
-        <label>Contenu</label>
-        <textarea id="ann-body" placeholder="Décris ton annonce ici..."></textarea>
-      </div>
-      <div class="btn-row">
-        <button class="btn-primary" onclick="postAnnounce()">PUBLIER</button>
-        <button class="btn-ghost" onclick="logout()">Déconnexion</button>
-      </div>
-      <div id="post-msg"></div>
-      <div id="admin-announce-list" style="margin-top:24px;"></div>
-    </div>
-  </div>
-
   <footer>
-    &copy; 2025 Dimension Hatred — Fan Mod FNF — Tous droits réservés
+    &copy; 2025 Dimension Hatred — Fan Mod FNF — All rights reserved
   </footer>
 </div>
 
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 <script>
-  const ADMIN_PASSWORD = "dimensionadmin";
-  const STORAGE_KEY    = "dh_announcements";
-  let loggedIn = false;
+  const firebaseConfig = {
+    apiKey: "AIzaSyCuoimw6NDZXg-tHSFfJabV4sEETqv3dL8",
+    authDomain: "hatred-site.firebaseapp.com",
+    projectId: "hatred-site",
+    storageBucket: "hatred-site.firebasestorage.app",
+    messagingSenderId: "588275924812",
+    appId: "1:588275924812:web:e8a9d260e9206ec12299e9"
+  };
 
-  function getAnn() {
-    try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; }
-    catch { return []; }
-  }
-  function saveAnn(arr) { localStorage.setItem(STORAGE_KEY, JSON.stringify(arr)); }
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.firestore();
 
   function esc(s) {
     return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
   }
 
-  function renderPublic() {
+  function formatDate(ts) {
+    if (!ts) return "—";
+    const date = ts.toDate ? ts.toDate() : new Date(ts);
+    return date.toLocaleDateString('en-US', { day: '2-digit', month: 'short', year: 'numeric' });
+  }
+
+  async function renderPublic() {
     const el = document.getElementById("announce-list");
-    const data = getAnn();
-    if (!data.length) {
-      el.innerHTML = '<div class="no-announce">Aucune annonce pour le moment. Revenez bientôt !</div>';
-      return;
+    try {
+      const snapshot = await db.collection("announcements").orderBy("createdAt", "desc").get();
+      const data = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      if (!data.length) {
+        el.innerHTML = '<div class="no-announce">No announcements yet. Check back soon!</div>';
+        return;
+      }
+      el.innerHTML = data.map(a => `
+        <div class="announce-card">
+          <div class="announce-meta">📢 ${esc(formatDate(a.createdAt))} — by ${esc(a.author || 'Admin')}</div>
+          <div class="announce-title">${esc(a.title)}</div>
+          <div class="announce-body">${esc(a.body)}</div>
+        </div>`).join("");
+    } catch (error) {
+      console.error(error);
+      el.innerHTML = '<div class="no-announce">Could not load announcements.</div>';
     }
-    el.innerHTML = data.slice().reverse().map(a => `
-      <div class="announce-card">
-        <div class="announce-meta">📢 ${esc(a.date)} — par ${esc(a.author)}</div>
-        <div class="announce-title">${esc(a.title)}</div>
-        <div class="announce-body">${esc(a.body)}</div>
-      </div>`).join("");
-  }
-
-  function renderAdmin() {
-    const el = document.getElementById("admin-announce-list");
-    const data = getAnn();
-    if (!data.length) { el.innerHTML = ""; return; }
-    el.innerHTML = '<p style="font-family:Share Tech Mono,monospace;font-size:.78rem;color:var(--muted);margin-bottom:10px;letter-spacing:.1em;">ANNONCES PUBLIÉES</p>'
-      + data.slice().reverse().map((a, i) => {
-          const idx = data.length - 1 - i;
-          return `<div style="display:flex;justify-content:space-between;align-items:center;padding:10px 15px;background:var(--bg);border:1px solid var(--border);border-radius:9px;margin-bottom:8px;">
-            <span style="font-size:.88rem;font-weight:700;">${esc(a.title)}</span>
-            <button class="btn-danger" onclick="deleteAnn(${idx})">Supprimer</button>
-          </div>`;
-        }).join("");
-  }
-
-  function toggleAdmin() {
-    const p = document.getElementById("admin-panel");
-    p.classList.toggle("open");
-    if (!p.classList.contains("open")) logout();
-  }
-
-  function login() {
-    const pwd = document.getElementById("admin-pwd").value;
-    const msg = document.getElementById("login-msg");
-    if (pwd === ADMIN_PASSWORD) {
-      loggedIn = true;
-      document.getElementById("login-section").style.display = "none";
-      document.getElementById("post-section").style.display  = "block";
-      renderAdmin();
-    } else {
-      msg.className = "msg err";
-      msg.textContent = "✗ Mot de passe incorrect.";
-    }
-  }
-
-  function logout() {
-    loggedIn = false;
-    document.getElementById("login-section").style.display = "block";
-    document.getElementById("post-section").style.display  = "none";
-    document.getElementById("admin-pwd").value = "";
-    document.getElementById("login-msg").textContent = "";
-  }
-
-  function postAnnounce() {
-    if (!loggedIn) return;
-    const title = document.getElementById("ann-title").value.trim();
-    const body  = document.getElementById("ann-body").value.trim();
-    const msg   = document.getElementById("post-msg");
-    if (!title || !body) {
-      msg.className = "msg err";
-      msg.textContent = "✗ Remplis le titre et le contenu.";
-      return;
-    }
-    const data = getAnn();
-    data.push({ title, body, author:"Admin",
-      date: new Date().toLocaleDateString("fr-FR",{day:"2-digit",month:"short",year:"numeric"}) });
-    saveAnn(data);
-    document.getElementById("ann-title").value = "";
-    document.getElementById("ann-body").value  = "";
-    msg.className = "msg ok";
-    msg.textContent = "✓ Annonce publiée !";
-    setTimeout(() => msg.textContent = "", 3000);
-    renderPublic(); renderAdmin();
-  }
-
-  function deleteAnn(idx) {
-    if (!loggedIn) return;
-    const data = getAnn();
-    data.splice(idx, 1);
-    saveAnn(data);
-    renderPublic(); renderAdmin();
   }
 
   renderPublic();
+
+  db.collection("announcements").orderBy("createdAt", "desc").onSnapshot((snapshot) => {
+    const data = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    const el = document.getElementById("announce-list");
+    if (!data.length) {
+      el.innerHTML = '<div class="no-announce">No announcements yet. Check back soon!</div>';
+      return;
+    }
+    el.innerHTML = data.map(a => `
+      <div class="announce-card">
+        <div class="announce-meta">📢 ${esc(formatDate(a.createdAt))} — by ${esc(a.author || 'Admin')}</div>
+        <div class="announce-title">${esc(a.title)}</div>
+        <div class="announce-body">${esc(a.body)}</div>
+      </div>`).join("");
+  }, (error) => {
+    console.error(error);
+    const el = document.getElementById("announce-list");
+    el.innerHTML = '<div class="no-announce">Announcements are unavailable until Firestore rules allow read access.</div>';
+  });
 </script>
 </body>
 </html>

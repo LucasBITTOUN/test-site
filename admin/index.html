@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin — Dimension Hatred</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Share+Tech+Mono&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg:#05020a;
+      --bg-soft:#11061f;
+      --panel:#11091b;
+      --panel-soft:#160b21;
+      --border:#6f309c55;
+      --acc1:#b045ff;
+      --acc2:#6f24ff;
+      --acc3:#99f6ff;
+      --text:#fff;
+      --muted:#bda6ca;
+      --glow:0 0 0 1px rgba(176,69,255,.3), 0 0 24px rgba(118,33,214,.28);
+    }
+
+    * { box-sizing: border-box; margin:0; padding:0; }
+    body {
+      min-height:100vh;
+      font-family:'Nunito',sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at top, rgba(114,30,173,.24), transparent 28%),
+        linear-gradient(180deg, #03040a, #02020b 20%, #05020a);
+      padding:24px;
+    }
+
+    .shell {
+      max-width:980px;
+      margin:0 auto;
+      display:flex;
+      flex-direction:column;
+      gap:20px;
+    }
+
+    .topbar {
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      border:1px solid rgba(111,48,156,.4);
+      border-radius:16px;
+      background:rgba(11,8,17,.78);
+      backdrop-filter:blur(6px);
+      padding:18px 20px;
+      box-shadow:var(--glow);
+    }
+
+    .eyebrow {
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      font-family:'Share Tech Mono',monospace;
+      font-size:.68rem;
+      letter-spacing:.24em;
+      text-transform:uppercase;
+      color:var(--acc3);
+      margin-bottom:10px;
+    }
+
+    h1 {
+      font-family:'Bebas Neue',sans-serif;
+      font-size:2.4rem;
+      letter-spacing:.08em;
+    }
+
+    .subtle {
+      margin-top:6px;
+      color:var(--muted);
+      font-size:.95rem;
+    }
+
+    .grid {
+      display:grid;
+      grid-template-columns:1.05fr .95fr;
+      gap:18px;
+    }
+
+    .card {
+      background:rgba(10,7,15,.82);
+      border:1px solid rgba(111,48,156,.35);
+      border-radius:18px;
+      box-shadow:var(--glow);
+      padding:18px;
+    }
+
+    .card h2 {
+      font-family:'Bebas Neue',sans-serif;
+      font-size:1.45rem;
+      letter-spacing:.08em;
+      margin-bottom:12px;
+    }
+
+    .field {
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+      margin-bottom:14px;
+    }
+
+    .field label {
+      font-family:'Share Tech Mono',monospace;
+      font-size:.72rem;
+      color:var(--acc3);
+      letter-spacing:.18em;
+      text-transform:uppercase;
+    }
+
+    .field input, .field textarea {
+      border-radius:10px;
+      border:1px solid rgba(184,146,255,.22);
+      background:#04020a;
+      color:var(--text);
+      padding:12px 13px;
+      font-family:'Nunito',sans-serif;
+      font-size:.95rem;
+      outline:none;
+    }
+
+    .field input:focus, .field textarea:focus {
+      border-color:var(--acc1);
+      box-shadow:0 0 0 1px rgba(176,69,255,.35);
+    }
+
+    .field textarea {
+      min-height:96px;
+      resize:vertical;
+    }
+
+    .btn-row {
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+
+    .btn-primary, .btn-ghost, .btn-danger {
+      border-radius:999px;
+      border:1px solid transparent;
+      padding:10px 14px;
+      font-weight:700;
+      font-size:.82rem;
+      cursor:pointer;
+      transition: .2s ease;
+      font-family:'Share Tech Mono',monospace;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+    }
+
+    .btn-primary {
+      background:linear-gradient(180deg, rgba(176,69,255,.82), rgba(111,36,255,.86));
+      color:#fff;
+    }
+
+    .btn-primary:hover { transform:translateY(-1px); }
+
+    .btn-ghost {
+      border-color:rgba(176,69,255,.4);
+      background:rgba(176,69,255,.08);
+      color:var(--text);
+    }
+
+    .btn-danger {
+      border-color:rgba(255,71,126,.36);
+      background:rgba(255,71,126,.12);
+      color:#fff;
+    }
+
+    .msg {
+      margin-top:10px;
+      padding:10px 12px;
+      border-radius:10px;
+      font-size:.82rem;
+      border:1px solid transparent;
+    }
+
+    .msg.ok { background:rgba(153,246,255,.12); color:var(--acc3); border-color:rgba(153,246,255,.24); }
+    .msg.err { background:rgba(255,68,102,.12); color:#ff8ca0; border-color:rgba(255,68,102,.28); }
+
+    .announce-list {
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
+
+    .announce-item {
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      align-items:flex-start;
+      padding:12px 13px;
+      border-radius:12px;
+      background:#07040d;
+      border:1px solid rgba(111,48,156,.28);
+    }
+
+    .announce-item .title {
+      font-weight:700;
+      color:#fff;
+      margin-bottom:4px;
+    }
+
+    .announce-item .meta {
+      color:var(--muted);
+      font-size:.72rem;
+      margin-top:4px;
+    }
+
+    .announce-item .body {
+      margin-top:6px;
+      color:#d6c0ef;
+      line-height:1.4;
+      font-size:.88rem;
+    }
+
+    @media (max-width:760px) {
+      .grid { grid-template-columns:1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <section class="topbar">
+      <div>
+        <div class="eyebrow">Restricted access</div>
+        <h1>ADMIN PANEL</h1>
+        <p class="subtle">Publish announcements from the hidden dashboard.</p>
+      </div>
+      <div class="eyebrow">/admin</div>
+    </section>
+
+    <section class="grid">
+      <article class="card" id="login-card">
+        <div class="eyebrow">Step 1</div>
+        <h2>Login</h2>
+        <div class="field">
+          <label>Admin email</label>
+          <input type="email" id="admin-email" placeholder="admin@example.com" onkeydown="if(event.key==='Enter')login()" />
+        </div>
+        <div class="field">
+          <label>Admin password</label>
+          <input type="password" id="admin-pwd" placeholder="••••••••" onkeydown="if(event.key==='Enter')login()" />
+        </div>
+        <div class="btn-row">
+          <button class="btn-primary" onclick="login()">LOGIN</button>
+        </div>
+        <div id="login-msg" class="msg" style="display:none"></div>
+      </article>
+
+      <article class="card" id="publish-card" style="display:none;">
+        <div class="eyebrow">Step 2</div>
+        <h2>Publish</h2>
+        <div class="field">
+          <label>Pseudo</label>
+          <input type="text" id="ann-author" placeholder="e.g. Lucas" />
+        </div>
+        <div class="field">
+          <label>Announcement title</label>
+          <input type="text" id="ann-title" placeholder="New update available!" />
+        </div>
+        <div class="field">
+          <label>Content</label>
+          <textarea id="ann-body" placeholder="Describe your announcement here..."></textarea>
+        </div>
+        <div class="btn-row">
+          <button class="btn-primary" onclick="postAnnounce()">PUBLISH</button>
+          <button class="btn-ghost" onclick="logout()">LOGOUT</button>
+        </div>
+        <div id="post-msg" class="msg" style="display:none"></div>
+      </article>
+    </section>
+
+    <section class="card">
+      <div class="eyebrow">Published</div>
+      <h2>Current announcements</h2>
+      <div id="admin-announce-list" class="announce-list"></div>
+    </section>
+  </div>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyCuoimw6NDZXg-tHSFfJabV4sEETqv3dL8",
+    authDomain: "hatred-site.firebaseapp.com",
+    projectId: "hatred-site",
+    storageBucket: "hatred-site.firebasestorage.app",
+    messagingSenderId: "588275924812",
+    appId: "1:588275924812:web:e8a9d260e9206ec12299e9"
+  };
+
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+  const db = firebase.firestore();
+
+  let currentUser = null;
+
+  document.getElementById("admin-email").value = "lbittoun@outlook.com";
+  document.getElementById("admin-pwd").value = "0RowwUKM";
+
+  function esc(s) {
+    return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+  }
+
+  function formatDate(ts) {
+    if (!ts) return "—";
+    const date = ts.toDate ? ts.toDate() : new Date(ts);
+    return date.toLocaleDateString('en-US', { day: '2-digit', month: 'short', year: 'numeric' });
+  }
+
+  function showMessage(id, type, text) {
+    const el = document.getElementById(id);
+    el.textContent = text;
+    el.className = `msg ${type}`;
+    el.style.display = 'block';
+  }
+
+  function hideMessage(id) {
+    const el = document.getElementById(id);
+    el.textContent = '';
+    el.style.display = 'none';
+  }
+
+  async function renderAdmin() {
+    const el = document.getElementById("admin-announce-list");
+    try {
+      const snapshot = await db.collection("announcements").orderBy("createdAt", "desc").get();
+      const data = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      if (!data.length) {
+        el.innerHTML = '<div class="subtle">No announcements yet.</div>';
+        return;
+      }
+      el.innerHTML = data.map(a => `
+        <div class="announce-item">
+          <div>
+            <div class="title">${esc(a.title)}</div>
+            <div class="body">${esc(a.body)}</div>
+            <div class="meta">${esc(formatDate(a.createdAt))} — ${esc(a.author || 'Admin')}</div>
+          </div>
+          <button class="btn-danger" onclick="deleteAnn('${a.id}')">DELETE</button>
+        </div>`).join("");
+    } catch (error) {
+      console.error(error);
+      el.innerHTML = '<div class="subtle">Could not load announcements.</div>';
+    }
+  }
+
+  async function login() {
+    const email = document.getElementById("admin-email").value.trim();
+    const pwd = document.getElementById("admin-pwd").value;
+
+    if (!email || !pwd) {
+      showMessage('login-msg', 'err', '✗ Please enter both email and password.');
+      return;
+    }
+
+    try {
+      currentUser = await auth.signInWithEmailAndPassword(email, pwd);
+      document.getElementById("publish-card").style.display = 'block';
+      document.getElementById("login-card").style.display = 'none';
+      hideMessage('login-msg');
+      await renderAdmin();
+    } catch (error) {
+      showMessage('login-msg', 'err', '✗ Incorrect email or password.');
+    }
+  }
+
+  async function logout() {
+    await auth.signOut();
+    currentUser = null;
+    document.getElementById("publish-card").style.display = 'none';
+    document.getElementById("login-card").style.display = 'block';
+    document.getElementById("admin-email").value = "lbittoun@outlook.com";
+    document.getElementById("admin-pwd").value = "0RowwUKM";
+    document.getElementById("ann-author").value = "";
+    document.getElementById("ann-title").value = "";
+    document.getElementById("ann-body").value = "";
+    hideMessage('post-msg');
+    hideMessage('login-msg');
+  }
+
+  async function postAnnounce() {
+    if (!currentUser) return;
+    const title = document.getElementById("ann-title").value.trim();
+    const body = document.getElementById("ann-body").value.trim();
+    const author = document.getElementById("ann-author").value.trim();
+
+    if (!author) {
+      showMessage('post-msg', 'err', '✗ Please enter a pseudo.');
+      return;
+    }
+
+    if (!title || !body) {
+      showMessage('post-msg', 'err', '✗ Please fill in both the title and content.');
+      return;
+    }
+
+    try {
+      await db.collection("announcements").add({
+        title,
+        body,
+        author,
+        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+      });
+
+      document.getElementById("ann-title").value = "";
+      document.getElementById("ann-body").value = "";
+      document.getElementById("ann-author").value = "";
+      showMessage('post-msg', 'ok', '✓ Announcement published!');
+      setTimeout(() => hideMessage('post-msg'), 3000);
+      await renderAdmin();
+    } catch (error) {
+      console.error(error);
+      showMessage('post-msg', 'err', '✗ Failed to publish announcement.');
+    }
+  }
+
+  async function deleteAnn(id) {
+    if (!currentUser) return;
+    try {
+      await db.collection("announcements").doc(id).delete();
+      await renderAdmin();
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  auth.onAuthStateChanged((user) => {
+    currentUser = user;
+    if (user) {
+      document.getElementById("publish-card").style.display = 'block';
+      document.getElementById("login-card").style.display = 'none';
+    } else {
+      document.getElementById("publish-card").style.display = 'none';
+      document.getElementById("login-card").style.display = 'block';
+      document.getElementById("admin-email").value = "lbittoun@outlook.com";
+      document.getElementById("admin-pwd").value = "0RowwUKM";
+    }
+  });
+
+  renderAdmin();
+
+  db.collection("announcements").orderBy("createdAt", "desc").onSnapshot((snapshot) => {
+    const data = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    const el = document.getElementById("admin-announce-list");
+    if (!data.length) {
+      el.innerHTML = '<div class="subtle">No announcements yet.</div>';
+      return;
+    }
+    el.innerHTML = data.map(a => `
+      <div class="announce-item">
+        <div>
+          <div class="title">${esc(a.title)}</div>
+          <div class="body">${esc(a.body)}</div>
+          <div class="meta">${esc(formatDate(a.createdAt))} — ${esc(a.author || 'Admin')}</div>
+        </div>
+        <button class="btn-danger" onclick="deleteAnn('${a.id}')">DELETE</button>
+      </div>`).join("");
+  }, (error) => {
+    console.error(error);
+    const el = document.getElementById("admin-announce-list");
+    el.innerHTML = '<div class="subtle">Announcements are unavailable until Firestore rules allow access.</div>';
+  });
+</script>
+</body>
+</html>
